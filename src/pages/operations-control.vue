@@ -377,8 +377,8 @@ onMounted(async () => {
           ? (nameParts[0][0] + nameParts[1][0]).toUpperCase()
           : surveyor.full_name.substring(0, 2).toUpperCase()
 
-        // Generate avatar URL from UI Avatars API
-        const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(surveyor.full_name)}&size=128&background=${borderColor.replace('#', '')}&color=fff&bold=true&format=png`
+        // Generate avatar URL from DiceBear API (more realistic avatars)
+        const avatarUrl = `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(surveyor.full_name)}&backgroundColor=${borderColor.replace('#', '')}`
 
         let popupContent = `<div style="padding: 4px 2px;">
             <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
@@ -654,22 +654,22 @@ onMounted(async () => {
 
                     <VDivider class="my-2" />
 
-                    <div class="d-flex justify-space-between">
+                    <div class="d-flex justify-space-between gap-1">
                       <div
-                        v-for="day in weather.forecast.slice(0, 3)"
+                        v-for="day in weather.forecast.slice(0, 5)"
                         :key="day.day"
-                        class="text-center"
+                        class="text-center flex-grow-1"
                       >
-                        <div class="text-caption text-medium-emphasis mb-1">
+                        <div class="text-caption text-medium-emphasis mb-1" style="font-size: 10px;">
                           {{ day.day }}
                         </div>
                         <VIcon
                           :icon="getWeatherIcon(day.icon)"
-                          size="24"
+                          size="20"
                           :color="getWeatherColor(day.icon)"
                           class="mb-1"
                         />
-                        <div class="text-caption font-weight-bold">
+                        <div class="text-caption font-weight-bold" style="font-size: 11px;">
                           {{ day.temp }}°
                         </div>
                       </div>
@@ -977,14 +977,14 @@ onMounted(async () => {
     }
   }
 
-  // Live indicator dot
+  // Live indicator dot (reduced size and less aggressive animation)
   .live-dot {
     display: inline-block;
-    block-size: 8px;
-    inline-size: 8px;
+    block-size: 6px;
+    inline-size: 6px;
     border-radius: 50%;
     background: currentColor;
-    animation: live-pulse 2s ease-out infinite;
+    animation: live-pulse 3s ease-out infinite;
   }
 
   @keyframes live-pulse {
@@ -993,7 +993,7 @@ onMounted(async () => {
       opacity: 1;
     }
     70% {
-      box-shadow: 0 0 0 8px currentColor;
+      box-shadow: 0 0 0 4px currentColor;
       opacity: 0;
     }
     100% {

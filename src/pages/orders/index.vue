@@ -62,8 +62,8 @@ const saveNewOrder = () => {
 
 // ── Column Definitions ─────────────────────────────────
 const allColumns = [
-  { title: 'IK', key: 'i_status', sortable: false, width: '50px' },
   { title: 'Nr zlecenia', key: 'order_no', width: '130px' },
+  { title: 'IK', key: 'i_status', sortable: false, width: '50px' },
   { title: 'Wykonawca', key: 'contractor.name', sortable: false },
   { title: 'Status', key: 'status', sortable: false, width: '130px' },
   { title: 'Data utworzenia', key: 'created_at', sortable: true, width: '140px' },
@@ -97,17 +97,17 @@ const tabDefinitions = [
   {
     label: 'Specyfikacja',
     icon: 'tabler-file-description',
-    keys: ['order_no', 'type.name', 'trade.name', 'asgroups', 'location', 'dwg_no', 'description'],
+    keys: ['order_no', 'i_status', 'type.name', 'trade.name', 'asgroups', 'location', 'dwg_no', 'description'],
   },
   {
     label: 'Wykonanie',
     icon: 'tabler-users',
-    keys: ['order_no', 'contractor_user', 'inspector', 'surveyor', 'execute_date', 'survey_no'],
+    keys: ['order_no', 'i_status', 'contractor_user', 'inspector', 'surveyor', 'execute_date', 'survey_no'],
   },
   {
     label: 'Dokumentacja',
     icon: 'tabler-notes',
-    keys: ['order_no', 'notes', 'surveyor_notes', 'orderMedia'],
+    keys: ['order_no', 'i_status', 'notes', 'surveyor_notes', 'orderMedia'],
   },
 ]
 
@@ -137,7 +137,7 @@ const sortOrder = ref<'asc' | 'desc'>('desc')
 const selectedOrders = ref<number[]>([])
 
 // ── Filters ────────────────────────────────────────────
-const filtersExpanded = ref(true)
+const filtersExpanded = ref(false)
 const filterProjectIds = ref<number[]>([])
 const filterTradeIds = ref<number[]>([])
 const filterTypeIds = ref<number[]>([])
@@ -341,10 +341,7 @@ const exportToExcel = () => {
 
     <!-- Filters Panel -->
     <VCard class="mb-6 filters-panel">
-      <VCardTitle
-        class="d-flex align-center cursor-pointer pa-5"
-        @click="filtersExpanded = !filtersExpanded"
-      >
+      <VCardTitle class="d-flex align-center pa-5">
         <VIcon
           icon="tabler-filter"
           class="me-2"
@@ -365,11 +362,19 @@ const exportToExcel = () => {
           size="small"
           color="error"
           prepend-icon="tabler-filter-off"
-          @click.stop="clearFilters"
+          @click="clearFilters"
         >
           Wyczysc filtry
         </VBtn>
-        <VIcon :icon="filtersExpanded ? 'tabler-chevron-up' : 'tabler-chevron-down'" />
+        <VBtn
+          variant="tonal"
+          size="small"
+          color="primary"
+          :prepend-icon="filtersExpanded ? 'tabler-chevron-up' : 'tabler-chevron-down'"
+          @click="filtersExpanded = !filtersExpanded"
+        >
+          {{ filtersExpanded ? 'Ukryj' : 'Pokaz' }}
+        </VBtn>
       </VCardTitle>
 
       <VExpandTransition>
@@ -532,13 +537,13 @@ const exportToExcel = () => {
 
     <!-- Orders Table -->
     <VCard>
-      <VCardText class="d-flex align-center justify-space-between flex-wrap gap-4 py-5 px-6">
+      <VCardText class="d-flex align-center justify-space-between flex-wrap gap-4 pa-6">
         <div class="d-flex align-center gap-3">
           <AppTextField
             v-model="searchQuery"
             placeholder="Szukaj zlecenia..."
             prepend-inner-icon="tabler-search"
-            style="min-inline-size: 300px;"
+            style="min-inline-size: 320px;"
             density="compact"
             clearable
           />
@@ -546,14 +551,25 @@ const exportToExcel = () => {
             v-if="selectedOrders.length > 0"
             color="primary"
             size="small"
+            variant="tonal"
           >
-            Zaznaczono: {{ selectedOrders.length }}
+            <VIcon
+              icon="tabler-checkbox"
+              size="16"
+              class="me-1"
+            />
+            {{ selectedOrders.length }} zaznaczonych
           </VChip>
         </div>
 
         <div class="d-flex align-center gap-2">
+          <VIcon
+            icon="tabler-columns"
+            size="18"
+            class="text-medium-emphasis"
+          />
           <span class="text-body-2 text-medium-emphasis">
-            {{ tabDefinitions[currentTab].label }}: {{ visibleHeaders.length }} kolumn
+            {{ visibleHeaders.length }} kolumn
           </span>
         </div>
       </VCardText>
@@ -958,28 +974,31 @@ const exportToExcel = () => {
         <!-- Pagination -->
         <template #bottom>
           <VDivider />
-          <div class="d-flex align-center justify-sm-space-between justify-center flex-wrap gap-3 px-6 py-3">
-            <p class="text-disabled mb-0">
+          <div class="d-flex align-center justify-sm-space-between justify-center flex-wrap gap-3 pa-5">
+            <p class="text-body-2 text-medium-emphasis mb-0">
               {{ paginationMeta({ page: page, itemsPerPage: itemsPerPage }, totalItems) }}
             </p>
 
-            <div class="d-flex align-center gap-4">
-              <span class="text-body-2 text-medium-emphasis">Wierszy na strone:</span>
-              <AppSelect
-                :model-value="itemsPerPage"
-                :items="[10, 25, 50, 100]"
-                style="inline-size: 80px;"
-                density="compact"
-                variant="outlined"
-                hide-details
-                @update:model-value="(val: number) => { itemsPerPage = val; page = 1 }"
-              />
+            <div class="d-flex align-center gap-3">
+              <div class="d-flex align-center gap-2">
+                <span class="text-body-2 text-medium-emphasis">Wierszy:</span>
+                <AppSelect
+                  :model-value="itemsPerPage"
+                  :items="[10, 25, 50, 100]"
+                  style="inline-size: 90px;"
+                  density="compact"
+                  variant="outlined"
+                  hide-details
+                  @update:model-value="(val: number) => { itemsPerPage = val; page = 1 }"
+                />
+              </div>
 
               <VPagination
                 v-model="page"
                 active-color="primary"
                 :length="Math.ceil(totalItems / itemsPerPage)"
                 :total-visible="$vuetify.display.xs ? 1 : Math.min(Math.ceil(totalItems / itemsPerPage), 5)"
+                size="small"
               />
             </div>
           </div>
@@ -1197,32 +1216,33 @@ const exportToExcel = () => {
   .v-tab {
     min-height: 52px;
     letter-spacing: 0.02em;
+    transition: all 0.2s ease;
   }
 }
 
 .orders-table {
   tr.order-row--pending {
-    border-inline-start: 4px solid #9e9e9e;
+    border-inline-start: 3px solid rgb(var(--v-theme-grey));
   }
 
   tr.order-row--in_progress {
-    border-inline-start: 4px solid #2196f3;
+    border-inline-start: 3px solid rgb(var(--v-theme-info));
   }
 
   tr.order-row--completed {
-    border-inline-start: 4px solid #4caf50;
+    border-inline-start: 3px solid rgb(var(--v-theme-success));
   }
 
   tr.order-row--postponed {
-    border-inline-start: 4px solid #ff9800;
+    border-inline-start: 3px solid rgb(var(--v-theme-warning));
   }
 
   tr.order-row--continuous {
-    border-inline-start: 4px solid #9c27b0;
+    border-inline-start: 3px solid rgb(var(--v-theme-secondary));
   }
 
   tr.order-row--canceled {
-    border-inline-start: 4px solid #f44336;
+    border-inline-start: 3px solid rgb(var(--v-theme-error));
   }
 
   thead th {
@@ -1230,29 +1250,38 @@ const exportToExcel = () => {
     font-weight: 600 !important;
     letter-spacing: 0.02em;
     white-space: nowrap;
-    padding-block: 14px !important;
+    padding-block: 12px !important;
+    padding-inline: 16px !important;
+    background-color: rgba(var(--v-theme-surface), 1) !important;
   }
 
   tbody tr {
-    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease;
 
     &:hover {
-      background-color: rgba(var(--v-theme-primary), 0.08) !important;
-      box-shadow: inset 0 0 0 1px rgba(var(--v-theme-primary), 0.12);
+      background-color: rgba(var(--v-theme-primary), 0.04) !important;
     }
   }
 
   td {
     font-size: 0.8125rem !important;
-    padding-block: 14px !important;
-    padding-inline: 12px !important;
+    padding-block: 12px !important;
+    padding-inline: 16px !important;
+    vertical-align: middle !important;
   }
 }
 
 .filters-panel {
+  border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+
+  .v-card-title {
+    background-color: rgba(var(--v-theme-surface), 1);
+    border-block-end: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+  }
+
   .v-card-text {
     .v-row > .v-col {
-      padding-block: 6px;
+      padding-block: 8px;
     }
   }
 }

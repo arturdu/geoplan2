@@ -55,11 +55,11 @@ export const projects: Project[] = [
 
 // ── Trades ──────────────────────────────────────────────
 export const trades: Trade[] = [
-  { id: 1, name: 'Drogi', definition: 'Prace geodezyjne zwiazane z budowa drog', orders_count: 52, icon: 'tabler-road' },
+  { id: 1, name: 'Drogi', definition: 'Prace geodezyjne związane z budową dróg', orders_count: 52, icon: 'tabler-road' },
   { id: 2, name: 'Mosty', definition: 'Prace geodezyjne na obiektach mostowych', orders_count: 28, icon: 'tabler-bridge' },
   { id: 3, name: 'Kolej', definition: 'Prace geodezyjne na liniach kolejowych', orders_count: 18, icon: 'tabler-train' },
   { id: 4, name: 'Kanalizacja', definition: 'Geodezja sieci kanalizacyjnych', orders_count: 22, icon: 'tabler-droplet' },
-  { id: 5, name: 'Wodociag', definition: 'Geodezja sieci wodociagowych', orders_count: 15, icon: 'tabler-droplet' },
+  { id: 5, name: 'Wodociąg', definition: 'Geodezja sieci wodociągowych', orders_count: 15, icon: 'tabler-droplet-filled' },
   { id: 6, name: 'Energetyka', definition: 'Geodezja sieci energetycznych', orders_count: 15, icon: 'tabler-bolt' },
 ]
 
@@ -74,17 +74,17 @@ export const types: Type[] = [
 // ── Asgroups ────────────────────────────────────────────
 export const asgroups: Asgroup[] = [
   { id: 1, name: 'Nawierzchnia jezdni', definition: 'Warstwy konstrukcyjne nawierzchni', project_id: 1, orders_count: 12, icon: 'tabler-road' },
-  { id: 2, name: 'Kanalizacja deszczowa', definition: 'Siec kanalizacji deszczowej', project_id: 1, orders_count: 8, icon: 'tabler-pipe' },
+  { id: 2, name: 'Kanalizacja deszczowa', definition: 'Sieć kanalizacji deszczowej', project_id: 1, orders_count: 8, icon: 'tabler-droplet' },
   { id: 3, name: 'Ogrodzenia i bariery', definition: 'Bariery ochronne i ogrodzenia', project_id: 1, orders_count: 5, icon: 'tabler-fence' },
   { id: 4, name: 'Fundamenty mostu', definition: 'Fundamenty i podpory mostu', project_id: 2, orders_count: 6, icon: 'tabler-wall' },
   { id: 5, name: 'Konstrukcja nawierzchni', definition: 'Nawierzchnia obwodnicy', project_id: 2, orders_count: 7, icon: 'tabler-layers-intersect' },
-  { id: 6, name: 'Przesla mostowe', definition: 'Konstrukcja przesla mostu', project_id: 3, orders_count: 4, icon: 'tabler-barrier-block' },
-  { id: 7, name: 'Filary mostu', definition: 'Filary i slupki nosne', project_id: 3, orders_count: 5, icon: 'tabler-wall' },
+  { id: 6, name: 'Przęsła mostowe', definition: 'Konstrukcja przęsła mostu', project_id: 3, orders_count: 4, icon: 'tabler-barrier-block' },
+  { id: 7, name: 'Filary mostu', definition: 'Filary i słupki nośne', project_id: 3, orders_count: 5, icon: 'tabler-wall' },
   { id: 8, name: 'Nasypy drogowe', definition: 'Nasypy i wykopy drogowe', project_id: 4, orders_count: 4, icon: 'tabler-traffic-cone' },
-  { id: 9, name: 'Tory i rozjazdy', definition: 'Uklad torow i rozjazdow', project_id: 5, orders_count: 3, icon: 'tabler-road' },
-  { id: 10, name: 'Kolektory glowne', definition: 'Kolektory glowne kanalizacji', project_id: 6, orders_count: 3, icon: 'tabler-pipe' },
-  { id: 11, name: 'Przylaczy kanalizacyjne', definition: 'Przylacza do budynkow', project_id: 6, orders_count: 2, icon: 'tabler-pipe' },
-  { id: 12, name: 'Siec wodociagowa', definition: 'Magistrala wodociagowa', project_id: 8, orders_count: 0, icon: 'tabler-antenna-bars-5' },
+  { id: 9, name: 'Tory i rozjazdy', definition: 'Układ torów i rozjazdów', project_id: 5, orders_count: 3, icon: 'tabler-road' },
+  { id: 10, name: 'Kolektory główne', definition: 'Kolektory główne kanalizacji', project_id: 6, orders_count: 3, icon: 'tabler-pipe' },
+  { id: 11, name: 'Przyłącza kanalizacyjne', definition: 'Przyłącza do budynków', project_id: 6, orders_count: 2, icon: 'tabler-pipe' },
+  { id: 12, name: 'Sieć wodociągowa', definition: 'Magistrala wodociągowa', project_id: 8, orders_count: 0, icon: 'tabler-droplet' },
 ]
 
 // ── Users ───────────────────────────────────────────────

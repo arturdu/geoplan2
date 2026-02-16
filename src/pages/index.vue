@@ -675,10 +675,51 @@ const navigateTo = (route: string) => {
 
 <style lang="scss" scoped>
 .main-dashboard-improved {
+  // Subtle construction-themed background pattern
+  position: relative;
+
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    opacity: 0.03;
+    pointer-events: none;
+    background-image:
+      // Grid pattern (construction blueprint style)
+      linear-gradient(rgba(var(--v-theme-primary), 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(var(--v-theme-primary), 0.3) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
   // Hero Banner
   .hero-banner {
     background: linear-gradient(135deg, rgba(var(--v-theme-primary), 0.1) 0%, rgba(var(--v-theme-secondary), 0.1) 100%);
     border: 2px solid rgba(var(--v-theme-primary), 0.2);
+
+    // Add construction crane silhouette in corner
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 200px;
+      height: 150px;
+      opacity: 0.05;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'%3E%3Cpath fill='currentColor' d='M20 140h160M90 140V40M90 40h80M90 60l-30-20M150 40v20l20 20M90 40l-5-10h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: bottom right;
+      background-size: contain;
+      pointer-events: none;
+    }
   }
 
   // Hero Stat Cards

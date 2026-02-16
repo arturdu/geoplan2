@@ -74,28 +74,37 @@ body .fc {
     font-size: 0.8125rem;
     font-weight: 500 !important;
     line-height: 14px;
+    color: #fff !important;
   }
 
   .fc-event-title {
     font-size: 0.75rem;
     font-weight: 500 !important;
     line-height: 14px;
+    color: #fff !important;
   }
 
   .fc-timegrid-event {
+    color: #fff !important;
+
     .fc-event-title {
       font-size: 0.8125rem;
       line-height: 1.25rem;
+      color: #fff !important;
     }
 
     .fc-event-time {
       margin-block-end: 2px;
+      color: #fff !important;
     }
   }
 
   .fc-event-title-container {
+    color: #fff !important;
+
     .fc-event-title {
       font-size: 0.8125rem;
+      color: #fff !important;
     }
   }
 
@@ -235,10 +244,12 @@ body .fc {
     margin-block-end: 0.5625rem;
     padding-block: 0.25rem;
     padding-inline: 0.75rem;
+    // Ensure white text on colored backgrounds for proper contrast
+    color: #fff !important;
   }
 
   .fc-event-main {
-    color: inherit;
+    color: #fff !important;
     font-weight: 500;
     line-height: 14px;
   }

@@ -112,16 +112,30 @@ function truncate(text: string, length: number = 80): string {
   <div>
     <VCard class="mb-6">
       <VCardTitle class="d-flex align-center flex-wrap gap-4 pa-6">
-        <VIcon
-          icon="tabler-bulb"
-          size="24"
-          class="me-1"
-        />
-        <span class="text-h5">Tablica Pomyslow</span>
+        <VAvatar
+          color="primary"
+          variant="tonal"
+          size="48"
+          rounded
+        >
+          <VIcon
+            icon="tabler-bulb"
+            size="28"
+          />
+        </VAvatar>
+        <div>
+          <div class="text-h5 mb-1">
+            Fabryka Pomysłów
+          </div>
+          <div class="text-caption text-medium-emphasis">
+            Zarządzaj propozycjami i pomysłami zespołu
+          </div>
+        </div>
         <VSpacer />
         <VBtn
           color="primary"
           prepend-icon="tabler-plus"
+          size="large"
           @click="openCreateDrawer"
         >
           Nowa Propozycja
@@ -169,16 +183,32 @@ function truncate(text: string, length: number = 80): string {
               <template #item="{ element }">
                 <VCard
                   class="kanban-card cursor-pointer"
-                  variant="tonal"
-                  :color="ideaStatusConfig[status].color"
+                  variant="outlined"
                   @click="openEditDrawer(element)"
                 >
-                  <VCardText class="pa-3">
-                    <h6 class="text-subtitle-1 font-weight-bold mb-1">
-                      {{ element.title }}
-                    </h6>
-                    <p class="text-caption text-medium-emphasis mb-0">
-                      {{ truncate(element.description) }}
+                  <VCardText class="pa-4">
+                    <div class="d-flex align-center gap-3 mb-2">
+                      <VAvatar
+                        :color="ideaStatusConfig[status].color"
+                        size="40"
+                        variant="tonal"
+                      >
+                        <VIcon
+                          :icon="ideaStatusConfig[status].icon"
+                          size="20"
+                        />
+                      </VAvatar>
+                      <div class="flex-grow-1">
+                        <h6 class="text-subtitle-2 font-weight-bold mb-0">
+                          {{ element.title }}
+                        </h6>
+                        <div class="text-caption text-medium-emphasis">
+                          {{ new Date(element.created_at).toLocaleDateString('pl-PL') }}
+                        </div>
+                      </div>
+                    </div>
+                    <p class="text-body-2 text-medium-emphasis mb-0">
+                      {{ truncate(element.description, 100) }}
                     </p>
                   </VCardText>
                 </VCard>
@@ -295,10 +325,11 @@ function truncate(text: string, length: number = 80): string {
 }
 
 .kanban-card {
-  transition: transform 0.15s ease;
+  transition: all 0.2s ease;
 }
 
 .kanban-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 </style>

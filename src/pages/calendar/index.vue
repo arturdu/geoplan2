@@ -153,7 +153,7 @@ const generateEvents = (): CalendarEvent[] => {
     // Meetings
     {
       date: '2026-02-18',
-      title: '📋 Spotkanie z BudMont',
+      title: 'Spotkanie z BudMont',
       desc: 'Omowienie postepow na S7 - przegląd realizacji etapu I',
       type: 'meeting',
       location: 'Biuro GDDKiA, Katowice',
@@ -162,7 +162,7 @@ const generateEvents = (): CalendarEvent[] => {
     },
     {
       date: '2026-02-20',
-      title: '🎯 Spotkanie koordynacyjne',
+      title: 'Spotkanie koordynacyjne',
       desc: 'Koordynacja zlecen na projekcie Obwodnica Zatora',
       type: 'meeting',
       location: 'Sala konferencyjna, Biuro',
@@ -171,7 +171,7 @@ const generateEvents = (): CalendarEvent[] => {
     },
     {
       date: '2026-02-25',
-      title: '📊 Prezentacja wynikow',
+      title: 'Prezentacja wynikow',
       desc: 'Prezentacja wynikow pomiarow dla inwestora - finalne raporty',
       type: 'meeting',
       location: 'Siedziba inwestora',
@@ -180,7 +180,7 @@ const generateEvents = (): CalendarEvent[] => {
     },
     {
       date: '2026-03-01',
-      title: '🛡️ Spotkanie z IK',
+      title: 'Spotkanie z IK',
       desc: 'Konsultacje z inwestorem kontroli - omówienie uwag',
       type: 'meeting',
       location: 'Online - MS Teams',
@@ -189,7 +189,7 @@ const generateEvents = (): CalendarEvent[] => {
     },
     {
       date: '2026-03-10',
-      title: '🤝 Narada techniczna',
+      title: 'Narada techniczna',
       desc: 'Omówienie problemow technicznych na budowie S19',
       type: 'meeting',
       location: 'Plac budowy S19',
@@ -200,7 +200,7 @@ const generateEvents = (): CalendarEvent[] => {
     // Field Work
     {
       date: '2026-02-17',
-      title: '📍 Tyczenie osi trasy',
+      title: 'Tyczenie osi trasy',
       desc: 'Pomiary w terenie - tyczenie osi drogi S7 km 12+400',
       type: 'fieldwork',
       location: 'S7 km 12+400 - 15+200',
@@ -209,7 +209,7 @@ const generateEvents = (): CalendarEvent[] => {
     },
     {
       date: '2026-02-19',
-      title: '📏 Inwentaryzacja powykonawcza',
+      title: 'Inwentaryzacja powykonawcza',
       desc: 'Pomiary powykonawcze kanalizacji - ulica Kwiatowa',
       type: 'fieldwork',
       location: 'Kraków, ul. Kwiatowa',
@@ -218,7 +218,7 @@ const generateEvents = (): CalendarEvent[] => {
     },
     {
       date: '2026-02-22',
-      title: '🗺️ Mapa do celów projektowych',
+      title: 'Mapa do celów projektowych',
       desc: 'Pomiary dla projektanta - teren inwestycji w Wadowicach',
       type: 'fieldwork',
       location: 'Wadowice, obręb Klecza',
@@ -227,7 +227,7 @@ const generateEvents = (): CalendarEvent[] => {
     },
     {
       date: '2026-02-26',
-      title: '📐 Kontrola realizacji',
+      title: 'Kontrola realizacji',
       desc: 'Sprawdzenie zgodności realizacji z projektem - most M1',
       type: 'fieldwork',
       location: 'Most M1, DK7',
@@ -236,7 +236,7 @@ const generateEvents = (): CalendarEvent[] => {
     },
     {
       date: '2026-03-03',
-      title: '🎯 Wyznaczenie wysokości',
+      title: 'Wyznaczenie wysokości',
       desc: 'Pomiary wysokościowe dla fundamentów',
       type: 'fieldwork',
       location: 'Nowa Huta, budowa hali',
@@ -245,7 +245,7 @@ const generateEvents = (): CalendarEvent[] => {
     },
     {
       date: '2026-03-06',
-      title: '📍 Osnowa geodezyjna',
+      title: 'Osnowa geodezyjna',
       desc: 'Pomiary osnowy geodezyjnej dla inwestycji',
       type: 'fieldwork',
       location: 'Obwodnica Zatora',
@@ -256,7 +256,7 @@ const generateEvents = (): CalendarEvent[] => {
     // Training
     {
       date: '2026-03-05',
-      title: '🎓 Szkolenie BIM',
+      title: 'Szkolenie BIM',
       desc: 'Szkolenie z nowych narzedzi BIM i modelowania 3D',
       type: 'training',
       location: 'Centrum Szkoleniowe, Warszawa',
@@ -265,7 +265,7 @@ const generateEvents = (): CalendarEvent[] => {
     },
     {
       date: '2026-03-12',
-      title: '📚 Warsztaty AutoCAD Civil 3D',
+      title: 'Warsztaty AutoCAD Civil 3D',
       desc: 'Zaawansowane funkcje Civil 3D dla geodetów',
       type: 'training',
       location: 'Online',
@@ -274,7 +274,7 @@ const generateEvents = (): CalendarEvent[] => {
     },
     {
       date: '2026-03-15',
-      title: '🔬 Nowe przepisy prawne',
+      title: 'Nowe przepisy prawne',
       desc: 'Szkolenie z aktualnych przepisów geodezyjnych',
       type: 'training',
       location: 'Hotel Mercure, Kraków',
@@ -285,7 +285,7 @@ const generateEvents = (): CalendarEvent[] => {
     // Reports
     {
       date: '2026-02-21',
-      title: '📝 Raport miesięczny',
+      title: 'Raport miesięczny',
       desc: 'Termin złożenia raportu z realizacji zlecen - luty 2026',
       type: 'report',
       location: 'Biuro',
@@ -294,7 +294,7 @@ const generateEvents = (): CalendarEvent[] => {
     },
     {
       date: '2026-02-28',
-      title: '📋 Operat geodezyjny',
+      title: 'Operat geodezyjny',
       desc: 'Deadline przekazania operatu dla projektu S7',
       type: 'report',
       location: 'Biuro',
@@ -303,7 +303,7 @@ const generateEvents = (): CalendarEvent[] => {
     },
     {
       date: '2026-03-07',
-      title: '📊 Raport postępu',
+      title: 'Raport postępu',
       desc: 'Raport z postępu prac na kontrakcie Obwodnica',
       type: 'report',
       location: 'GDDKiA',
@@ -312,7 +312,7 @@ const generateEvents = (): CalendarEvent[] => {
     },
     {
       date: '2026-03-14',
-      title: '📄 Dokumentacja powykonawcza',
+      title: 'Dokumentacja powykonawcza',
       desc: 'Termin złożenia dokumentacji powykonawczej - etap II',
       type: 'report',
       location: 'Urząd Gminy',
@@ -585,13 +585,13 @@ const jumpToDate = (date: string) => {
       <VCard v-if="selectedEvent">
         <VCardTitle class="d-flex align-center pa-5">
           <VAvatar
-            :color="selectedEvent.backgroundColor"
+            :color="selectedEvent?.backgroundColor"
             variant="tonal"
             size="40"
             class="me-3"
           >
             <VIcon
-              :icon="eventTypeOptions.find(opt => opt.value === selectedEvent.type)?.icon || 'tabler-calendar'"
+              :icon="eventTypeOptions.find(opt => opt.value === selectedEvent?.type)?.icon || 'tabler-calendar'"
               size="24"
             />
           </VAvatar>
@@ -838,6 +838,53 @@ const jumpToDate = (date: string) => {
 .calendar-date-picker {
   :deep(.flatpickr-calendar) {
     box-shadow: none !important;
+  }
+}
+
+// Enhanced contrast and readability for calendar events
+:deep(.fc) {
+  .fc-event {
+    // Force white text on all colored event backgrounds
+    color: #fff !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+
+    // Ensure all child elements also have white text
+    * {
+      color: #fff !important;
+    }
+  }
+
+  .fc-event-main {
+    color: #fff !important;
+  }
+
+  .fc-event-title,
+  .fc-event-time {
+    color: #fff !important;
+  }
+
+  // List view should maintain proper contrast
+  .fc-list-event-title,
+  .fc-list-event-time {
+    color: rgba(var(--v-theme-on-surface), var(--v-high-emphasis-opacity)) !important;
+  }
+
+  // Daygrid events (month view)
+  .fc-daygrid-event {
+    .fc-event-title,
+    .fc-event-time {
+      color: #fff !important;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  // Timegrid events (week/day view)
+  .fc-timegrid-event {
+    .fc-event-title,
+    .fc-event-time {
+      color: #fff !important;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
   }
 }
 </style>
