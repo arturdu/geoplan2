@@ -91,22 +91,22 @@ const currentTab = ref(0)
 const tabDefinitions = [
   {
     label: 'Podstawowe',
-    icon: 'tabler-list-details',
+    icon: 'tabler-clipboard-list',
     keys: ['order_no', 'i_status', 'contractor.name', 'status', 'created_at', 'project.name', 'completion_date'],
   },
   {
     label: 'Specyfikacja',
-    icon: 'tabler-file-description',
+    icon: 'tabler-list-details',
     keys: ['order_no', 'i_status', 'type.name', 'trade.name', 'asgroups', 'location', 'dwg_no', 'description'],
   },
   {
     label: 'Wykonanie',
-    icon: 'tabler-users',
+    icon: 'tabler-tool',
     keys: ['order_no', 'i_status', 'contractor_user', 'inspector', 'surveyor', 'execute_date', 'survey_no'],
   },
   {
     label: 'Dokumentacja',
-    icon: 'tabler-notes',
+    icon: 'tabler-file-text',
     keys: ['order_no', 'i_status', 'notes', 'surveyor_notes', 'orderMedia'],
   },
 ]
@@ -156,7 +156,18 @@ const typeOptions = types.map(t => ({ title: t.name, value: t.id }))
 const contractorOptions = contractors.map(c => ({ title: c.name, value: c.id }))
 const surveyorOptions = users.filter(u => u.type === 'surveyor').map(u => ({ title: u.full_name, value: u.id }))
 
+const toggleStatus = (status: OrderStatus) => {
+  const index = filterStatuses.value.indexOf(status)
+  if (index > -1) {
+    filterStatuses.value.splice(index, 1)
+  }
+  else {
+    filterStatuses.value.push(status)
+  }
+}
+
 const clearFilters = () => {
+  searchQuery.value = ''
   filterProjectIds.value = []
   filterTradeIds.value = []
   filterTypeIds.value = []
@@ -169,7 +180,8 @@ const clearFilters = () => {
 }
 
 const hasActiveFilters = computed(() =>
-  filterProjectIds.value.length > 0
+  searchQuery.value !== ''
+  || filterProjectIds.value.length > 0
   || filterTradeIds.value.length > 0
   || filterTypeIds.value.length > 0
   || filterStatuses.value.length > 0
@@ -339,66 +351,75 @@ const exportToExcel = () => {
       </div>
     </div>
 
-    <!-- Filters Panel -->
+    <!-- Filters Panel - Compact Inline -->
     <VCard class="mb-6 filters-panel">
-      <VCardTitle class="d-flex align-center pa-5">
-        <VIcon
-          icon="tabler-filter"
-          class="me-2"
-        />
-        Filtry
-        <VChip
-          v-if="hasActiveFilters"
-          color="primary"
-          size="x-small"
-          class="ms-2"
-        >
-          Aktywne
-        </VChip>
-        <VSpacer />
-        <VBtn
-          v-if="hasActiveFilters"
-          variant="text"
-          size="small"
-          color="error"
-          prepend-icon="tabler-filter-off"
-          @click="clearFilters"
-        >
-          Wyczysc filtry
-        </VBtn>
-        <VBtn
-          variant="tonal"
-          size="small"
-          color="primary"
-          :prepend-icon="filtersExpanded ? 'tabler-chevron-up' : 'tabler-chevron-down'"
-          @click="filtersExpanded = !filtersExpanded"
-        >
-          {{ filtersExpanded ? 'Ukryj' : 'Pokaz' }}
-        </VBtn>
-      </VCardTitle>
+      <VCardText class="pa-5">
+        <div class="d-flex align-center gap-3 flex-wrap">
+          <!-- Search -->
+          <AppTextField
+            v-model="searchQuery"
+            placeholder="Szukaj zlecenia..."
+            prepend-inner-icon="tabler-search"
+            clearable
+            style="min-inline-size: 320px;"
+          />
 
-      <VExpandTransition>
-        <div v-show="filtersExpanded">
-          <VDivider />
-          <VCardText class="pa-6">
-            <VRow :dense="false">
-              <VCol
-                cols="12"
-                sm="6"
-                md="3"
-              >
-                <AppAutocomplete
-                  v-model="filterProjectIds"
-                  :items="projectOptions"
-                  label="Projekt"
-                  prepend-inner-icon="tabler-briefcase"
-                  multiple
-                  clearable
-                  chips
-                  closable-chips
-                  density="compact"
-                />
-              </VCol>
+          <!-- Status Buttons -->
+          <div class="d-flex gap-2">
+            <VBtn
+              v-for="status in statusOptions"
+              :key="status.value"
+              :variant="filterStatuses.includes(status.value as OrderStatus) ? 'flat' : 'outlined'"
+              :color="filterStatuses.includes(status.value as OrderStatus) ? 'primary' : 'default'"
+              size="default"
+              @click="toggleStatus(status.value as OrderStatus)"
+            >
+              {{ status.title }}
+            </VBtn>
+          </div>
+
+          <!-- Project Filter -->
+          <AppAutocomplete
+            v-model="filterProjectIds"
+            :items="projectOptions"
+            placeholder="Projekt"
+            prepend-inner-icon="tabler-briefcase"
+            multiple
+            clearable
+            chips
+            closable-chips
+            hide-details
+            style="min-inline-size: 200px;"
+          />
+
+          <VSpacer />
+
+          <!-- Clear & Expand Buttons -->
+          <VBtn
+            variant="text"
+            size="small"
+            color="error"
+            prepend-icon="tabler-filter-off"
+            :disabled="!hasActiveFilters"
+            @click="clearFilters"
+          >
+            Wyczysc
+          </VBtn>
+
+          <VBtn
+            variant="tonal"
+            size="small"
+            color="primary"
+            :icon="filtersExpanded ? 'tabler-chevron-up' : 'tabler-chevron-down'"
+            @click="filtersExpanded = !filtersExpanded"
+          />
+        </div>
+
+        <!-- Expandable Additional Filters -->
+        <VExpandTransition>
+          <div v-show="filtersExpanded">
+            <VDivider class="my-4" />
+            <VRow>
               <VCol
                 cols="12"
                 sm="6"
@@ -426,23 +447,6 @@ const exportToExcel = () => {
                   :items="typeOptions"
                   label="Rodzaj"
                   prepend-inner-icon="tabler-category"
-                  multiple
-                  clearable
-                  chips
-                  closable-chips
-                  density="compact"
-                />
-              </VCol>
-              <VCol
-                cols="12"
-                sm="6"
-                md="3"
-              >
-                <AppSelect
-                  v-model="filterStatuses"
-                  :items="statusOptions"
-                  label="Status"
-                  prepend-inner-icon="tabler-toggle-left"
                   multiple
                   clearable
                   chips
@@ -530,79 +534,49 @@ const exportToExcel = () => {
                 </VRow>
               </VCol>
             </VRow>
-          </VCardText>
-        </div>
-      </VExpandTransition>
+          </div>
+        </VExpandTransition>
+      </VCardText>
     </VCard>
 
     <!-- Orders Table -->
     <VCard>
-      <VCardText class="d-flex align-center justify-space-between flex-wrap gap-4 pa-6">
-        <div class="d-flex align-center gap-3">
-          <AppTextField
-            v-model="searchQuery"
-            placeholder="Szukaj zlecenia..."
-            prepend-inner-icon="tabler-search"
-            style="min-inline-size: 320px;"
-            density="compact"
-            clearable
-          />
-          <VChip
-            v-if="selectedOrders.length > 0"
-            color="primary"
-            size="small"
-            variant="tonal"
-          >
-            <VIcon
-              icon="tabler-checkbox"
-              size="16"
-              class="me-1"
-            />
-            {{ selectedOrders.length }} zaznaczonych
-          </VChip>
-        </div>
-
-        <div class="d-flex align-center gap-2">
+      <VCardText
+        v-if="selectedOrders.length > 0"
+        class="d-flex align-center pa-4"
+      >
+        <VChip
+          color="primary"
+          size="small"
+          variant="tonal"
+        >
           <VIcon
-            icon="tabler-columns"
-            size="18"
-            class="text-medium-emphasis"
+            icon="tabler-checkbox"
+            size="16"
+            class="me-1"
           />
-          <span class="text-body-2 text-medium-emphasis">
-            {{ visibleHeaders.length }} kolumn
-          </span>
-        </div>
+          {{ selectedOrders.length }} zaznaczonych
+        </VChip>
       </VCardText>
 
-      <VDivider />
+      <VDivider v-if="selectedOrders.length > 0" />
 
-      <!-- Tabs - Vuexy Style (aligned to right) -->
+      <!-- Tabs - Simple Compact Style -->
       <VTabs
         v-model="currentTab"
         color="primary"
-        class="orders-tabs"
-        align-tabs="end"
       >
         <VTab
           v-for="(tab, index) in tabDefinitions"
           :key="index"
           :value="index"
-          class="text-body-1 font-weight-medium"
         >
           <VIcon
             :icon="tab.icon"
-            size="20"
+            size="18"
             class="me-2"
           />
           {{ tab.label }}
-          <VChip
-            size="x-small"
-            variant="tonal"
-            color="primary"
-            class="ms-2"
-          >
-            {{ tab.keys.length }}
-          </VChip>
         </VTab>
       </VTabs>
 
@@ -1212,11 +1186,15 @@ const exportToExcel = () => {
 </template>
 
 <style lang="scss">
-.orders-tabs {
-  .v-tab {
-    min-height: 52px;
-    letter-spacing: 0.02em;
-    transition: all 0.2s ease;
+.filters-panel {
+  .v-btn {
+    text-transform: none;
+    letter-spacing: 0.01em;
+    font-size: 0.875rem;
+
+    &.v-btn--variant-flat {
+      color: white !important;
+    }
   }
 }
 

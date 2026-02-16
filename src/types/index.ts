@@ -307,11 +307,11 @@ export const orderStatusColors: Record<OrderStatus, string> = {
 }
 
 export const orderStatusLabels: Record<OrderStatus, string> = {
-  pending: 'Oczekujace',
+  pending: 'Oczekujące',
   in_progress: 'W realizacji',
   completed: 'Wykonane',
-  postponed: 'Odlozone',
-  continuous: 'Ciagle',
+  postponed: 'Odłożone',
+  continuous: 'Ciągłe',
   canceled: 'Anulowane',
 }
 
