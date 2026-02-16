@@ -576,12 +576,12 @@ const exportToExcel = () => {
 
       <VDivider />
 
-      <!-- Tabs -->
+      <!-- Tabs - Vuexy Style (aligned to right) -->
       <VTabs
         v-model="currentTab"
         color="primary"
         class="orders-tabs"
-        grow
+        align-tabs="end"
       >
         <VTab
           v-for="(tab, index) in tabDefinitions"
