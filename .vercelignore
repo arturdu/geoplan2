@@ -1,0 +1,53 @@
+# Dependencies
+node_modules
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+dist
+.output
+.nuxt
+.cache
+
+# Python (if any)
+__pycache__
+*.pyc
+*.pyo
+*.egg-info
+.venv
+venv
+poetry.lock
+pyproject.toml
+
+# Docker
+*.dockerfile
+docker-compose*.yml
+.dockerignore
+
+# Testing
+coverage
+.nyc_output
+
+# Vuexy example files
+vuexy-example
+
+# Git
+.git
+.gitignore
